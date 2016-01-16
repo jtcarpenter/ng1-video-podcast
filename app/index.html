@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vpod">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Video Podcast</title>
+        <meta name="description" content="Video Podcast">
+        <link rel="stylesheet" href="/app.css">
+    </head>
+    <body class="ng-cloak">
+        <header ng-controller="headerCtrl as header">
+            <h1>{{header.title}}</h1>
+            <p>{{header.description}}</p>
+        </header>
+        <div>
+            <div ng-controller="feedCtrl as feed">
+                <div ng-repeat="episode in feed.episodes">
+                    {{episode.name}}
+                </div>
+            </div>
+            <div ng-controller="playerCtrl as player">
+                {{player.video}}
+            </div>
+            <!-- <div ui-view></div> -->
+        </div>
+        <script src="/angular/angular.min.js"></script>
+        <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="/angular-resource/angular-resource.min.js"></script>
+        <script src="/app.js"></script>
+        <script src="/components/components.js"></script>
+        <script src="/header/header.js"></script>
+        <script src="/feed/feed.js"></script>
+        <script src="/player/player.js"></script>
+    </body>
+</html>
