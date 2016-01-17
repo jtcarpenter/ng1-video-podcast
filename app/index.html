@@ -9,13 +9,13 @@
     </head>
     <body class="ng-cloak">
         <header ng-controller="headerCtrl as header">
-            <h1>{{header.title}}</h1>
-            <p>{{header.description}}</p>
+            <h1>{{header.feed.site.title}}</h1>
+            <p>{{header.feed.site.description}}</p>
         </header>
         <div>
-            <div ng-controller="feedCtrl as feed">
-                <div ng-repeat="episode in feed.episodes">
-                    {{episode.name}}
+            <div ng-controller="navCtrl as nav">
+                <div ng-repeat="item in nav.feed.items">
+                    {{item.title}}
                 </div>
             </div>
             <div ng-controller="playerCtrl as player">
@@ -29,7 +29,7 @@
         <script src="/app.js"></script>
         <script src="/components/components.js"></script>
         <script src="/header/header.js"></script>
-        <script src="/feed/feed.js"></script>
+        <script src="/nav/nav.js"></script>
         <script src="/player/player.js"></script>
     </body>
 </html>

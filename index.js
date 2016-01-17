@@ -13,6 +13,7 @@ app.use(express.static(__dirname + '/node_modules'));
 app.use('/api/', function(req, res) {
     request(FEED, function(error, resp, body) {
         parser(body, function(error, ret) {
+            // res.status(404);
             res.json(ret);
         });
     });

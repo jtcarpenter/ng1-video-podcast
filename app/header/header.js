@@ -12,10 +12,12 @@
         .module('vpod.header')
         .controller('headerCtrl', headerCtrl);
 
-    headerCtrl.$inject = [];
+    headerCtrl.$inject = ['Feed'];
 
-    function headerCtrl() {
-        this.title = '[podcast title]';
-        this.description = '[podcast description]';
+    function headerCtrl(Feed) {
+        var that = this;
+        this.feed = Feed.load({}, function() {}, function(error) {
+            console.log(error);
+        });
     }
 })();

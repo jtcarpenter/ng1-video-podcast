@@ -12,9 +12,9 @@
         .module('vpod.player')
         .controller('playerCtrl', playerCtrl);
 
-    playerCtrl.$inject = [];
+    playerCtrl.$inject = ['Feed'];
 
-    function playerCtrl() {
+    function playerCtrl(Feed) {
         this.video = '[player]';
     }
 })();

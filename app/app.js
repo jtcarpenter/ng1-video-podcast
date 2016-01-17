@@ -24,7 +24,7 @@
             'ngResource',
             'vpod.components',
             'vpod.header',
-            'vpod.feed',
+            'vpod.nav',
             'vpod.player'
         ];
     }
