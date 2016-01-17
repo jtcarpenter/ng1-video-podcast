@@ -1,1 +1,8 @@
 h1 {color: red;}
+
+.content {display: flex;flex-direction: row;}
+
+@media (max-width: 720px) {
+    .content {display: flex;flex-direction: column-reverse;justify-content: center;}
+    .player {text-align: center;}
+}

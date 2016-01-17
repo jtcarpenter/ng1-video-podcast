@@ -17,8 +17,14 @@
     function playerCtrl(Feed, $sce) {
         var that = this;
 
-        function play(o) {
-            that.episode = $sce.trustAsResourceUrl(o.link);
+        function play(episode) {
+            that.episode = episode;
+            that.episode.enclosures = episode.enclosures.map(function(enc) {
+                if (/^video\/[a-zA-Z0-9]+$/.test(enc.type)) {
+                    enc.url = $sce.trustAsResourceUrl(enc.url);
+                    return enc;
+                }
+            });
         }
 
         Feed.register(play);

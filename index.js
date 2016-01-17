@@ -13,8 +13,8 @@ app.use(express.static(__dirname + '/node_modules'));
 
 app.use('/api/', function(req, res) {
 
-    var req = request(CNN_URL),
-        feedparser = new FeedParser({feedurl: CNN_URL}),
+    var req = request(TED_URL),
+        feedparser = new FeedParser({feedurl: TED_URL}),
         items = [];
 
     req.on('error', function (error) {

@@ -12,17 +12,20 @@
             <h1>{{header.feed.site.title}}</h1>
             <p>{{header.feed.site.description}}</p>
         </header>
-        <div>
-            <div ng-controller="navCtrl as nav">
-                <div ng-repeat="item in nav.feed.items track by $index">
-                    <h2><a ng-click="nav.select($index)">{{item.title}}</a></h2>
-                </div>
-            </div>
-            <div ng-controller="playerCtrl as player">
-            <iframe width="500" height="500" ng-src="{{player.episode}}"></iframe>
-            </div>
+        <section class="content">
+            <nav ng-controller="navCtrl as nav">
+                <ul ng-repeat="item in nav.feed.items track by $index">
+                    <li><h2><a ng-click="nav.select($index)">{{item.title}}</a></h2></li>
+                </ul>
+            </nav>
+            <section class="player" ng-controller="playerCtrl as player">
+                <video width="400" controls>
+                    <source ng-repeat="enclosure in player.episode.enclosures" src="{{enclosure.url}}" type="{{enclosure.type}}">
+                </video>
+            </section>
             <!-- <div ui-view></div> -->
-        </div>
+        </section>
+        <footer></footer>
         <script src="/angular/angular.min.js"></script>
         <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="/angular-resource/angular-resource.min.js"></script>
