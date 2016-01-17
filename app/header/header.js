@@ -16,7 +16,7 @@
 
     function headerCtrl(Feed) {
         var that = this;
-        this.feed = Feed.load({}, function() {}, function(error) {
+        this.feed = Feed.get({}, function() {}, function(error) {
             console.log(error);
         });
     }

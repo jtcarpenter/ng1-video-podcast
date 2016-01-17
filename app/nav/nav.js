@@ -16,6 +16,10 @@
 
     function navCtrl(Feed) {
         var that = this;
-        this.feed = Feed.get();
+        this.feed = Feed.getCached();
+
+        this.select = function(i) {
+            Feed.select(i);
+        }
     }
 })();

@@ -14,12 +14,12 @@
         </header>
         <div>
             <div ng-controller="navCtrl as nav">
-                <div ng-repeat="item in nav.feed.items">
-                    {{item.title}}
+                <div ng-repeat="item in nav.feed.items track by $index">
+                    <h2><a ng-click="nav.select($index)">{{item.title}}</a></h2>
                 </div>
             </div>
             <div ng-controller="playerCtrl as player">
-                {{player.video}}
+            <iframe width="500" height="500" ng-src="{{player.episode}}"></iframe>
             </div>
             <!-- <div ui-view></div> -->
         </div>

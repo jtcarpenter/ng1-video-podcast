@@ -12,37 +12,58 @@
         .module('vpod.components')
         .factory('Feed', Feed);
 
-    Feed.$inject = ['$resource'];
+    Feed.$inject = ['$resource', '$q'];
 
-    function Feed($resource) {
+    function Feed($resource, $q) {
         var res = $resource(
             '/api',
             {get: {method: 'GET', cache: true}}
         );
 
         var _feed = {},
-            _curr = {};
+            //_selected = $q.defer(),
+            _player;
 
         return {
-            load: function() {
+            get: function() {
                 _feed = res.get.apply(this, arguments);
-                return this.get();
+                return this.getCached();
             },
 
-            get: function() {
+            getCached: function() {
                 return _feed;
             },
 
-            setCurr: function(i) {
-                _curr = _feed.items[i];
+            select: function(i) {
+                // _selected = $q.defer();
+                // _selected.resolve(_feed.items[i]);
+                _player(_feed.items[i]);
             },
 
-            getCurr: function() {
-                return _curr;
+            register: function(player) {
+                _player = player;
             }
         };
     }
 })();
+
+// (function() {
+//     'use strict';
+
+//     angular
+//         .module('vpod.components')
+//         .factory('Player', Player);
+
+//     function Player() {
+//         return function (feed) {
+//             return {
+//                 loaded: function() {
+//                     return feed.getSelected();
+//                 }
+//             }
+//         };
+//     }
+// })();
 
 (function() {
     'use strict';
