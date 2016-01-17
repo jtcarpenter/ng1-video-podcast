@@ -1,7 +1,7 @@
 'use strict';
 
 var PORT = 3000,
-    CNN_URL = 'http://rss.cnn.com/services/podcasting/amanpour/rss',
+    CNN_URL = 'http://rss.cnn.com/services/podcasting/studentnews/rss.xml',
     TED_URL = 'https://www.ted.com/talks/rss',
     request = require('request'),
     FeedParser = require('feedparser'),
@@ -13,8 +13,8 @@ app.use(express.static(__dirname + '/node_modules'));
 
 app.use('/api/', function(req, res) {
 
-    var req = request(TED_URL),
-        feedparser = new FeedParser({feedurl: TED_URL}),
+    var req = request(CNN_URL),
+        feedparser = new FeedParser({feedurl: CNN_URL}),
         items = [];
 
     req.on('error', function (error) {
