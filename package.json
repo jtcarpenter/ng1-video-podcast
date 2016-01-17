@@ -14,7 +14,7 @@
     "angular": "~1.4.8",
     "angular-ui-router": "~1.0.0-alpha0",
     "express": "~4.13.3",
-    "node-feedparser": "~1.0.1",
-    "angular-resource": "~1.4.8"
+    "angular-resource": "~1.4.8",
+    "feedparser": "~1.1.4"
   }
 }
