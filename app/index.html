@@ -20,7 +20,8 @@
             </nav>
             <section class="player" ng-controller="playerCtrl as player">
                 <video width="400" controls>
-                    <source ng-repeat="enclosure in player.episode.enclosures" src="{{enclosure.url}}" type="{{enclosure.type}}">
+                    <source ng-repeat="enclosure in player.episode.enclosures" src="{{enclosure.url | trustUrl}}" type="{{enclosure.type}}">
+                    <audio src="{{Your_URL | trustUrl}}" audioplayer controls></audio>
                 </video>
             </section>
             <!-- <div ui-view></div> -->

@@ -21,7 +21,6 @@
             that.episode = episode;
             that.episode.enclosures = episode.enclosures.map(function(enc) {
                 if (/^video\/[a-zA-Z0-9]+$/.test(enc.type)) {
-                    enc.url = $sce.trustAsResourceUrl(enc.url);
                     return enc;
                 }
             });

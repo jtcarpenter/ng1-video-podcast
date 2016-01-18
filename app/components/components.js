@@ -5,6 +5,10 @@
         .module('vpod.components', [])
 })();
 
+/**
+ * Feed Factory
+ * @namespace Factories
+ */
 (function() {
     'use strict';
 
@@ -14,6 +18,11 @@
 
     Feed.$inject = ['$resource', '$q'];
 
+    /**
+     * @namespace Feed
+     * @desc resource wrapper
+     * @memberOf Factories.Feed
+     */
     function Feed($resource, $q) {
         var res = $resource(
             '/api',
@@ -25,6 +34,7 @@
             _player;
 
         return {
+
             get: function() {
                 _feed = res.get.apply(this, arguments);
                 return this.getCached();
@@ -34,6 +44,13 @@
                 return _feed;
             },
 
+            /**
+             * @name select
+             * @desc Selects an item in the feed
+             * @param {int} index of item
+             * @returns {object}
+             * @memberOf Factories.Feed
+             */
             select: function(i) {
                 // _selected = $q.defer();
                 // _selected.resolve(_feed.items[i]);
@@ -44,6 +61,22 @@
                 _player = player;
             }
         };
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('vpod.components')
+        .filter('trustUrl',trustUrl);
+
+    trustUrl.$inject = ['$sce'];
+
+    function trustUrl($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        }
     }
 })();
 
