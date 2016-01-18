@@ -47,7 +47,7 @@
             /**
              * @name select
              * @desc Selects an item in the feed
-             * @param {int} index of item
+             * @param {integer} index of item
              * @returns {object}
              * @memberOf Factories.Feed
              */
@@ -97,6 +97,42 @@
 //         };
 //     }
 // })();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('vpod.components')
+        .directive('vpodPlayer', vpodPlayer);
+
+    vpodPlayer.$inject = [];
+
+    function vpodPlayer() {
+
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                episode: '=',
+                controls: '='
+            },
+
+            link: function ($scope, elem, attrs, ctrl, transclude) {
+                $scope.controls.play = function() {
+                    // elem[0].src = '';
+                    elem[0].load();
+                    elem[0].play();
+                }
+            },
+
+            compile: function(elem, attrs) {
+                return this.link;
+            },
+
+            templateUrl: '/components/vpodplayer.view.html'
+        }
+    }
+})();
 
 (function() {
     'use strict';

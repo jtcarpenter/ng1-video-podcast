@@ -14,15 +14,17 @@
         </header>
         <section class="content">
             <nav ng-controller="navCtrl as nav">
-                <ul ng-repeat="item in nav.feed.items track by $index">
-                    <li><h2><a ng-click="nav.select($index)">{{item.title}}</a></h2></li>
+                <ul>
+                    <li ng-repeat="item in nav.feed.items track by $index"><h2><a ng-click="nav.select($index)">{{item.title}}</a></h2></li>
                 </ul>
             </nav>
             <section class="player" ng-controller="playerCtrl as player">
-                <video width="400" controls>
+                <h2>{{player.episode.title}}</h2>
+                <!-- <video width="400" controls>
                     <source ng-repeat="enclosure in player.episode.enclosures" src="{{enclosure.url | trustUrl}}" type="{{enclosure.type}}">
                     <audio src="{{Your_URL | trustUrl}}" audioplayer controls></audio>
-                </video>
+                </video> -->
+                <vpod-player episode="player.episode" controls="player.controls"></vpod-player>
             </section>
             <!-- <div ui-view></div> -->
         </section>
