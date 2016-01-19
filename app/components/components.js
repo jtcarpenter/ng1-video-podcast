@@ -80,6 +80,23 @@
     }
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('vpod.components')
+        .filter('slice', slice);
+
+    function slice() {
+        return function(arr, start, end) {
+            if (typeof arr === 'undefined') return;
+
+            // TODO: Check if items actually have valid videos
+            return arr.slice(start, end);
+        }
+    }
+})();
+
 // (function() {
 //     'use strict';
 

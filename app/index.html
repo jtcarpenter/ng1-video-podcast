@@ -15,7 +15,9 @@
         <section class="content">
             <nav ng-controller="navCtrl as nav">
                 <ul>
-                    <li ng-repeat="item in nav.feed.items track by $index"><h2><a ng-click="nav.select($index)">{{item.title}}</a></h2></li>
+                    <li ng-repeat="item in nav.feed.items | slice:0:4 track by $index">
+                        <h2><a ng-click="nav.select($index)">{{item.title}}</a></h2>
+                    </li>
                 </ul>
             </nav>
             <section class="player" ng-controller="playerCtrl as player">

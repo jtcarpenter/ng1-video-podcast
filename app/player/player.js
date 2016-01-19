@@ -23,10 +23,9 @@
 
         function play(episode) {
             that.episode.title = episode.title;
-            that.episode.enclosures = episode.enclosures.map(function(enc) {
-                if (/^video\/[a-zA-Z0-9]+$/.test(enc.type)) { // TODO: Move into directive
-                    return enc;
-                }
+            that.episode.enclosures = episode.enclosures.filter(function(enc) {
+                // TODO: Move - this probably also needs to happen when reducing list to 4 episodes
+                return /^video\/[a-zA-Z0-9]+$/.test(enc.type);
             });
 
             that.controls.play();
