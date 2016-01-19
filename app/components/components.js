@@ -156,6 +156,63 @@
 
     angular
         .module('vpod.components')
+        .directive('vpodNav', vpodNav);
+
+    vpodNav.$inject = [];
+
+    function vpodNav() {
+
+        function up() {
+            alert('up');
+        }
+
+        function down() {
+            alert('down');
+        }
+
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                items: '=',
+                onSelect: '='
+            },
+
+            link: function ($scope, elem, attrs, ctrl, transclude) {
+                $scope.up = up;
+                $scope.down = down;
+
+                var _elem = angular.element(document.getElementsByTagName('body'));
+                _elem.bind('keydown', function (event) {
+
+                    if (event.keyCode === 38) { // Up
+                        event.preventDefault();
+                        event.stopPropagation();
+                        alert($scope.pointer.i);
+                        up();
+                    }
+                    if (event.keyCode === 40) { // Up
+                        event.preventDefault();
+                        event.stopPropagation();
+                        down();
+                    }
+                });
+            },
+
+            compile: function(elem, attrs) {
+                return this.link;
+            },
+
+            templateUrl: '/components/vpodnav.view.html'
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('vpod.components')
         .service('debounce', debounce);
 
     function debounce() {
