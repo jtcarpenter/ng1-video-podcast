@@ -124,6 +124,20 @@
 
     vpodPlayer.$inject = [];
 
+    function vpodPlayerCtrl($scope, Feed, $element) {
+        function play(episode) {    
+            $scope.episode = episode;
+            $scope.episode.enclosures = episode.enclosures.filter(function(enc) {
+                return /^video\/[a-zA-Z0-9]+$/.test(enc.type);
+            });
+            // $element[0].src = episode.url;
+            $element[0].load();
+            $element[0].play();
+        }
+
+        Feed.register(play);
+    }
+
     function vpodPlayer() {
 
         return {
@@ -133,6 +147,8 @@
                 episode: '=',
                 controls: '='
             },
+
+            // controller: ['$scope', 'Feed', '$element', vpodPlayerCtrl],
 
             link: function ($scope, elem, attrs, ctrl, transclude) {
                 $scope.controls.play = function() {
@@ -164,6 +180,7 @@
 
         function up() {
             alert('up');
+
         }
 
         function down() {
@@ -173,6 +190,7 @@
         return {
             restrict: 'E',
             replace: true,
+            // require: 'vpodPlayer',
             scope: {
                 items: '=',
                 onSelect: '='
