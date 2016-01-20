@@ -46,8 +46,10 @@ app.use('/api/', function(req, res) {
 
     feedparser.on('end', function(error) {
         if (error) {
-            console.log(error, error.stack);
+            console.log(error);
+            res.status(404);
             res.json(error);
+            return;
         }
         res.json({
             site: {

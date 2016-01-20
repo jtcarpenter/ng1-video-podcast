@@ -29,9 +29,9 @@
             {get: {method: 'GET', cache: true}}
         );
 
-        var _feed = {},
+        var _feed = {};
             //_selected = $q.defer(),
-            _player;
+            // _player;
 
         return {
 
@@ -51,15 +51,15 @@
              * @returns {object}
              * @memberOf Factories.Feed
              */
-            select: function(i) {
-                // _selected = $q.defer();
-                // _selected.resolve(_feed.items[i]);
-                _player(_feed.items[i]);
-            },
+            // select: function(i) {
+            //     // _selected = $q.defer();
+            //     // _selected.resolve(_feed.items[i]);
+            //     _player(_feed.items[i]);
+            // },
 
-            register: function(player) {
-                _player = player;
-            }
+            // register: function(player) {
+            //     _player = player;
+            // }
         };
     }
 })();
@@ -85,6 +85,25 @@
 
     angular
         .module('vpod.components')
+        .filter('videoSrc',videoSrc);
+
+    videoSrc.$inject = [];
+
+    function videoSrc() {
+        return function(enclosures) {
+            if (typeof enclosures === 'undefined') return false;
+            return enclosures.filter(function(enc) {
+                return /^video\/[a-zA-Z0-9]+$/.test(enc.type);
+            });
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('vpod.components')
         .filter('slice', slice);
 
     function slice() {
@@ -97,23 +116,49 @@
     }
 })();
 
-// (function() {
-//     'use strict';
+(function() {
+    'use strict';
 
-//     angular
-//         .module('vpod.components')
-//         .factory('Player', Player);
+    angular
+        .module('vpod.components')
+        .factory('pubSub', pubSub);
 
-//     function Player() {
-//         return function (feed) {
-//             return {
-//                 loaded: function() {
-//                     return feed.getSelected();
-//                 }
-//             }
-//         };
-//     }
-// })();
+    var events = {}
+
+    function sub(event, onPub) {
+        if (!events[event]) {
+            events[event] = [];
+        }
+        events[event].push(onPub);
+    }
+
+    function unSub(event, onPub) {
+        if (!events[event]) {
+            return;
+        }
+        if (events[event].indexOf(onPub) !== -1) {
+            events[event].splice(events[event].indexOf(onPub), 1);
+        }
+    }
+
+    function pub(event, args) {
+        if (!events[event]) {
+            console.error(event + 'does not exist');
+            return;
+        }
+        for (var i = 0, l = events[event].length; i < l; i++) {
+            events[event][i].apply(events[event][i], args, []);
+        }
+    }
+
+    function pubSub() {
+        return {
+            sub: sub,
+            unSub: unSub,
+            pub: pub
+        }
+    }
+})();
 
 (function() {
     'use strict';
@@ -122,40 +167,21 @@
         .module('vpod.components')
         .directive('vpodPlayer', vpodPlayer);
 
-    vpodPlayer.$inject = [];
+    vpodPlayer.$inject = ['pubSub', 'Feed'];
 
-    function vpodPlayerCtrl($scope, Feed, $element) {
-        function play(episode) {    
-            $scope.episode = episode;
-            $scope.episode.enclosures = episode.enclosures.filter(function(enc) {
-                return /^video\/[a-zA-Z0-9]+$/.test(enc.type);
-            });
-            // $element[0].src = episode.url;
-            $element[0].load();
-            $element[0].play();
-        }
-
-        Feed.register(play);
-    }
-
-    function vpodPlayer() {
+    function vpodPlayer(pubSub, Feed) {
 
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                episode: '=',
-                controls: '='
-            },
-
-            // controller: ['$scope', 'Feed', '$element', vpodPlayerCtrl],
 
             link: function ($scope, elem, attrs, ctrl, transclude) {
-                $scope.controls.play = function() {
-                    // elem[0].src = '';
+
+                pubSub.sub('play', function() {
+                    $scope.episode = Feed.getCached().items[arguments[0]];
                     elem[0].load();
                     elem[0].play();
-                }
+                });
             },
 
             compile: function(elem, attrs) {

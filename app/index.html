@@ -17,8 +17,8 @@
                 <vpod-nav items="nav.feed.items" on-select="nav.select"></vpod-nav>
             </nav>
             <section class="player" ng-controller="playerCtrl as player">
-                <h2>{{player.episode.title}}</h2>
-                <vpod-player episode="player.episode" controls="player.controls"></vpod-player>
+                <h2>{{player.feed.items[player.i].title}}</h2>
+                <vpod-player></vpod-player>
             </section>
             <!-- <div ui-view></div> -->
         </section>

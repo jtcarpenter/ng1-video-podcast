@@ -1,4 +1,6 @@
 <video width="400" controls>
-    <source ng-repeat="enclosure in episode.enclosures" src="{{enclosure.url | trustUrl}}" type="{{enclosure.type}}">
-    <audio src="{{Your_URL | trustUrl}}" audioplayer controls></audio>
+    <source
+        ng-repeat="enclosure in episode.enclosures | videoSrc"
+        src="{{enclosure.url | trustUrl}}"
+        type="{{enclosure.type}}">
 </video>
