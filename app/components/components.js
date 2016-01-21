@@ -204,15 +204,9 @@
 
     function vpodNav($document) {
 
-        var IDENTIFIER = 'episode-';
-
-        function up(elem) {
-            console.log('up');
-        }
-
-        function down(elem) {
-            console.log('down');
-        }
+        var ITEM_ID = 'episode-',
+            UP_ID = 'up-id',
+            DOWN_ID = 'down-id';
 
         return {
             restrict: 'E',
@@ -226,73 +220,73 @@
                 $scope.up = up;
                 $scope.down = down;
 
-                $scope.count = 20;
-                $scope.start = 0;
+                $scope.itemId = ITEM_ID;
+                $scope.upId = UP_ID;
+                $scope.downId = DOWN_ID;
 
-                $scope.identifier = IDENTIFIER;
+                function up() {
+                    var curr = $scope.items.map(function(item){ return item.focussed; }).indexOf('focussed'),
+                        next = curr -= 1,
+                        nextEl = document.getElementById(ITEM_ID + next);
+                    if (nextEl) {
+                        nextEl.focus();
+                    }
+                }
 
-                // TODO:
-                // -- cursors should navigate through list
-                // -- Tab should only reach ul (remove href?)
-                // -- (Tab when inside should skip to next element in DOM)
-                // -- Up and Down buttons
-
+                function down() {
+                    var curr = $scope.items.map(function(item){ return item.focussed; }).indexOf('focussed'),
+                        next = curr += 1,
+                        nextEl = document.getElementById(ITEM_ID + next);
+                    if (nextEl) {
+                        nextEl.focus();
+                    }
+                }
                 elem.bind('keydown', function (event) {
 
                     if (event.keyCode === 38) { // Up
-                        if (document.activeElement === elem[0]) {
-                            console.log('focus is on containing div - do nothing');
+                        if (document.activeElement.id === DOWN_ID) {
+                            console.log(ITEM_ID + ($scope.items.length - 1));
+                            var nextEl = document.getElementById(ITEM_ID + ($scope.items.length - 1));
                         }
-                        if (new RegExp('^' + IDENTIFIER + '[0-9]+$').test(document.activeElement.id)) {
-                            var curr = parseInt(document.activeElement.id.replace(IDENTIFIER, ''), 10),
+                        if (new RegExp('^' + ITEM_ID + '[0-9]+$').test(document.activeElement.id)) {
+                            var curr = parseInt(document.activeElement.id.replace(ITEM_ID, ''), 10),
                                 next = curr -= 1,
-                                nextEl = document.getElementById(IDENTIFIER + next);
-
-                            if (nextEl) {
-                                nextEl.focus();
-                            }
+                                nextEl = document.getElementById(ITEM_ID + next);
+                        }
+                        if (nextEl) {
+                            nextEl.focus();
                         }
                     }
+
                     if (event.keyCode === 40) { // Down
 
-                        if (document.activeElement === elem[0]) {
-                            var nextEl = document.getElementById(IDENTIFIER + '0');
+                        if (document.activeElement === elem[0] ||
+                            document.activeElement.id === UP_ID) {
+
+                            var nextEl = document.getElementById(ITEM_ID + '0');
                         }
 
-                        if (new RegExp('^' + IDENTIFIER + '[0-9]+$').test(document.activeElement.id)) {
-                            var curr = parseInt(document.activeElement.id.replace(IDENTIFIER, ''), 10),
+                        if (new RegExp('^' + ITEM_ID + '[0-9]+$').test(document.activeElement.id)) {
+                            var curr = parseInt(document.activeElement.id.replace(ITEM_ID, ''), 10),
                                 next = curr += 1,
-                                nextEl = document.getElementById(IDENTIFIER + next);
+                                nextEl = document.getElementById(ITEM_ID + next);
                         }
 
                         if (nextEl) {
                             nextEl.focus();
                         }
                     }
-
-                    if (event.keyCode === 9) {
-                        console.log('tab pressed');
-                        if (document.activeElement === elem[0]) {
-                            //
-                        }
-                    }
-
-                    if (event.shiftKey && event.keyCode == 9) {
-                        console.log('shift+tab pressed');
-                        //elem[0].focus();
-                    }
                 });
 
-                $scope.onFocus = function(items, item, $event) {
+                $scope.onFocus = function(item, $event) {
+                    angular.forEach($scope.items, function(item) {
+                        item.focussed = undefined;
+                    });
                     item.focussed = 'focussed';
                 };
 
                 $scope.onBlur = function(item, $event) {
-                    item.focussed = undefined;
-                };
-
-                $scope.onKeydown = function(item) {
-                    console.log('keydown');
+                    // item.focussed = undefined;
                 };
             },
 
