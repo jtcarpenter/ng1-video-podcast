@@ -14,7 +14,7 @@
         </header>
         <section class="content">
             <nav ng-controller="navCtrl as nav">
-                <vpod-nav items="nav.feed.items" on-select="nav.select"></vpod-nav>
+                <vpod-nav items="nav.feed.items" on-select="nav.select" tabindex="0"></vpod-nav>
             </nav>
             <section class="player" ng-controller="playerCtrl as player">
                 <h2>{{player.feed.items[player.i].title}}</h2>

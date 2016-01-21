@@ -200,23 +200,23 @@
         .module('vpod.components')
         .directive('vpodNav', vpodNav);
 
-    vpodNav.$inject = [];
+    vpodNav.$inject = ['$document'];
 
-    function vpodNav() {
+    function vpodNav($document) {
 
-        function up() {
-            alert('up');
+        var IDENTIFIER = 'episode-';
 
+        function up(elem) {
+            console.log('up');
         }
 
-        function down() {
-            alert('down');
+        function down(elem) {
+            console.log('down');
         }
 
         return {
             restrict: 'E',
             replace: true,
-            // require: 'vpodPlayer',
             scope: {
                 items: '=',
                 onSelect: '='
@@ -226,21 +226,74 @@
                 $scope.up = up;
                 $scope.down = down;
 
-                var _elem = angular.element(document.getElementsByTagName('body'));
-                _elem.bind('keydown', function (event) {
+                $scope.count = 20;
+                $scope.start = 0;
+
+                $scope.identifier = IDENTIFIER;
+
+                // TODO:
+                // -- cursors should navigate through list
+                // -- Tab should only reach ul (remove href?)
+                // -- (Tab when inside should skip to next element in DOM)
+                // -- Up and Down buttons
+
+                elem.bind('keydown', function (event) {
 
                     if (event.keyCode === 38) { // Up
-                        event.preventDefault();
-                        event.stopPropagation();
-                        alert($scope.pointer.i);
-                        up();
+                        if (document.activeElement === elem[0]) {
+                            console.log('focus is on containing div - do nothing');
+                        }
+                        if (new RegExp('^' + IDENTIFIER + '[0-9]+$').test(document.activeElement.id)) {
+                            var curr = parseInt(document.activeElement.id.replace(IDENTIFIER, ''), 10),
+                                next = curr -= 1,
+                                nextEl = document.getElementById(IDENTIFIER + next);
+
+                            if (nextEl) {
+                                nextEl.focus();
+                            }
+                        }
                     }
-                    if (event.keyCode === 40) { // Up
-                        event.preventDefault();
-                        event.stopPropagation();
-                        down();
+                    if (event.keyCode === 40) { // Down
+
+                        if (document.activeElement === elem[0]) {
+                            var nextEl = document.getElementById(IDENTIFIER + '0');
+                        }
+
+                        if (new RegExp('^' + IDENTIFIER + '[0-9]+$').test(document.activeElement.id)) {
+                            var curr = parseInt(document.activeElement.id.replace(IDENTIFIER, ''), 10),
+                                next = curr += 1,
+                                nextEl = document.getElementById(IDENTIFIER + next);
+                        }
+
+                        if (nextEl) {
+                            nextEl.focus();
+                        }
+                    }
+
+                    if (event.keyCode === 9) {
+                        console.log('tab pressed');
+                        if (document.activeElement === elem[0]) {
+                            //
+                        }
+                    }
+
+                    if (event.shiftKey && event.keyCode == 9) {
+                        console.log('shift+tab pressed');
+                        //elem[0].focus();
                     }
                 });
+
+                $scope.onFocus = function(items, item, $event) {
+                    item.focussed = 'focussed';
+                };
+
+                $scope.onBlur = function(item, $event) {
+                    item.focussed = undefined;
+                };
+
+                $scope.onKeydown = function(item) {
+                    console.log('keydown');
+                };
             },
 
             compile: function(elem, attrs) {

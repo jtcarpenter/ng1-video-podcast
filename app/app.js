@@ -9,13 +9,13 @@
 
     function config($stateProvider) {
         // $stateProvider
-        //     .state('/', {
-        //         url: '',
+        //     .state('home', {
+        //         url: '/',
         //         templateUrl: null,
-        //         onEnter: ['$stateParams', '$state', function ($stateParams, $state) {
-
-        //         }]
         //     })
+        //     .state('episode', {
+        //         url: '/:index'
+        //     });
     }
 
     function dependencies() {
@@ -29,4 +29,3 @@
         ];
     }
 })();
-
