@@ -8,14 +8,6 @@
     config.$inject = ['$httpProvider', '$stateProvider']
 
     function config($httpProvider, $stateProvider) {
-        // $stateProvider
-        //     .state('home', {
-        //         url: '/',
-        //         templateUrl: null,
-        //     })
-        //     .state('episode', {
-        //         url: '/:index'
-        //     });
         $httpProvider.interceptors.push('interceptor');
     }
 

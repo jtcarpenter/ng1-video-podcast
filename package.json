@@ -6,7 +6,9 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js",
+    "test-single-run": "karma start karma.conf.js  --single-run"
   },
   "author": "Jason Carpenter",
   "license": "BSD-2-Clause",
@@ -19,6 +21,7 @@
     "request": "^2.67.0"
   },
   "devDependencies": {
+    "angular-mocks": "^1.4.9",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
