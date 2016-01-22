@@ -5,9 +5,9 @@
         .module('vpod', dependencies())
         .config(config);
 
-    config.$inject = ['$stateProvider']
+    config.$inject = ['$httpProvider', '$stateProvider']
 
-    function config($stateProvider) {
+    function config($httpProvider, $stateProvider) {
         // $stateProvider
         //     .state('home', {
         //         url: '/',
@@ -16,6 +16,7 @@
         //     .state('episode', {
         //         url: '/:index'
         //     });
+        $httpProvider.interceptors.push('interceptor');
     }
 
     function dependencies() {

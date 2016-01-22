@@ -13,6 +13,8 @@ app.use(express.static(__dirname + '/node_modules'));
 
 app.use('/api/', function(req, res) {
 
+    //setTimeout(function() { /////////
+
     var req = request(CNN_URL),
         feedparser = new FeedParser({feedurl: CNN_URL}),
         items = [];
@@ -51,6 +53,7 @@ app.use('/api/', function(req, res) {
             res.json(error);
             return;
         }
+
         res.json({
             site: {
                 title: this.meta.title,
@@ -62,6 +65,8 @@ app.use('/api/', function(req, res) {
             items: items
         });
     });
+
+    //}, 2000); /////////
 });
 
 app.listen(PORT, function() {

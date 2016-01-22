@@ -9,6 +9,9 @@
     </head>
     <body class="ng-cloak">
         <header ng-controller="headerCtrl as header">
+            <span class="spinner" id="spinner" ng-show="header.loader.loading">
+                Loading...
+            </span>
             <h1>{{header.feed.site.title}}</h1>
             <p>{{header.feed.site.description}}</p>
         </header>
