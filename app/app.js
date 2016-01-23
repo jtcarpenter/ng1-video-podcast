@@ -14,7 +14,6 @@
     }
 
     angular.forEach(subModules(), function(mod) {
-        console.log(mod);
         angular.module(mod, []);
     });
 
@@ -32,7 +31,8 @@
             'header',
             'nav',
             'player'
-        ].map(function(mod) {
+        ]
+        .map(function(mod) {
             return APP_NAME + '.' + mod;
         });
     }

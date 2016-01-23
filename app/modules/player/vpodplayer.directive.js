@@ -22,10 +22,6 @@
                 });
             },
 
-            compile: function(elem, attrs) {
-                return this.link;
-            },
-
             templateUrl: '/modules/player/vpodplayer.view.html'
         }
     }

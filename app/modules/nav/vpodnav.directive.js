@@ -29,56 +29,58 @@
                 $scope.upId = UP_ID;
                 $scope.downId = DOWN_ID;
 
+                function nextEl(diff) {
+                    var curr = $scope.items.map(function(item){
+                            return item.focussed;
+                        })
+                        .indexOf('focussed'),
+                        next = curr += diff;
+
+                    return document.getElementById(ITEM_ID + next);
+                }
+
+                function move(el) {
+                    if (el) el.focus();
+                }
+
                 function up() {
-                    var curr = $scope.items.map(function(item){ return item.focussed; }).indexOf('focussed'),
-                        next = curr -= 1,
-                        nextEl = document.getElementById(ITEM_ID + next);
-                    if (nextEl) {
-                        nextEl.focus();
-                    }
+                    move(nextEl(-1));
                 }
 
                 function down() {
-                    var curr = $scope.items.map(function(item){ return item.focussed; }).indexOf('focussed'),
-                        next = curr += 1,
-                        nextEl = document.getElementById(ITEM_ID + next);
-                    if (nextEl) {
-                        nextEl.focus();
-                    }
+                    move(nextEl(1));
                 }
+
                 elem.bind('keydown', function (event) {
 
                     if (event.keyCode === 38) { // Up
+
+                        // If we are currently focussed on the down button
+                        // move focus to the last item
                         if (document.activeElement.id === DOWN_ID) {
-                            console.log(ITEM_ID + ($scope.items.length - 1));
-                            var nextEl = document.getElementById(ITEM_ID + ($scope.items.length - 1));
+                            move(document.getElementById(ITEM_ID +
+                                ($scope.items.length - 1)));
                         }
-                        if (new RegExp('^' + ITEM_ID + '[0-9]+$').test(document.activeElement.id)) {
-                            var curr = parseInt(document.activeElement.id.replace(ITEM_ID, ''), 10),
-                                next = curr -= 1,
-                                nextEl = document.getElementById(ITEM_ID + next);
-                        }
-                        if (nextEl) {
-                            nextEl.focus();
+
+                        // Else attempt move to next item above
+                        else {
+                            move(nextEl(-1));
                         }
                     }
 
                     if (event.keyCode === 40) { // Down
 
+                        // If we are currently focussed on the container or the up button
+                        // move focus to first item
                         if (document.activeElement === elem[0] ||
                             document.activeElement.id === UP_ID) {
 
-                            var nextEl = document.getElementById(ITEM_ID + '0');
+                            move(document.getElementById(ITEM_ID + '0'));
                         }
 
-                        if (new RegExp('^' + ITEM_ID + '[0-9]+$').test(document.activeElement.id)) {
-                            var curr = parseInt(document.activeElement.id.replace(ITEM_ID, ''), 10),
-                                next = curr += 1,
-                                nextEl = document.getElementById(ITEM_ID + next);
-                        }
-
-                        if (nextEl) {
-                            nextEl.focus();
+                        // Else attempt move to next item below
+                        else {
+                            move(nextEl(1));
                         }
                     }
                 });
@@ -89,14 +91,6 @@
                     });
                     item.focussed = 'focussed';
                 };
-
-                $scope.onBlur = function(item, $event) {
-                    // item.focussed = undefined;
-                };
-            },
-
-            compile: function(elem, attrs) {
-                return this.link;
             },
 
             templateUrl: '/modules/nav/vpodnav.view.html'

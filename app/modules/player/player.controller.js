@@ -8,6 +8,7 @@
     playerCtrl.$inject = ['Feed', 'pubSub'];
 
     function playerCtrl(Feed, pubSub) {
+
         var that = this;
 
         this.feed = Feed.getCached();
