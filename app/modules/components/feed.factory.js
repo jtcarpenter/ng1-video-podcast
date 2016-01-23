@@ -13,22 +13,19 @@
      * @memberOf Factories.Feed
      */
     function Feed($resource, $q) {
-        var res = $resource(
-            '/api',
-            {
-                get: {
-                    method: 'GET',
-                    cache: true,
-                }
-            }
-        );
 
-        var _feed = {};
-            //_selected = $q.defer(),
-            // _player;
+        var res = $resource('/api', {get: {method: 'GET',cache: true,}}),
+            _feed = {};
 
         return {
 
+            /**
+             * @name get
+             * @desc Gets a feed resource from server
+             * -- @param {integer} index of item
+             * @returns {object}
+             * @memberOf Factories.Feed
+             */
             get: function() {
                 _feed = res.get.apply(this, arguments);
                 return this.getCached();
@@ -37,24 +34,6 @@
             getCached: function() {
                 return _feed;
             }
-
-
-            /**
-             * @name select
-             * @desc Selects an item in the feed
-             * @param {integer} index of item
-             * @returns {object}
-             * @memberOf Factories.Feed
-             */
-            // select: function(i) {
-            //     // _selected = $q.defer();
-            //     // _selected.resolve(_feed.items[i]);
-            //     _player(_feed.items[i]);
-            // },
-
-            // register: function(player) {
-            //     _player = player;
-            // }
         };
     }
 })();

@@ -8,7 +8,7 @@
     navCtrl.$inject = ['Feed', 'pubSub'];
 
     function navCtrl(Feed, pubSub) {
-        var that = this;
+
         this.feed = Feed.getCached();
 
         this.select = function(i) {
