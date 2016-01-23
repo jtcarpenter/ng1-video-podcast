@@ -11,6 +11,8 @@ $ npm start
 
 ## Vagrant
 
+$ IP="192.168.33.99" vagrant up
+
 ## How to run tests
 
 $ sudo npm install -g karma-cli
