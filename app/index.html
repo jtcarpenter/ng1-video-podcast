@@ -9,9 +9,7 @@
     </head>
     <body class="ng-cloak">
         <header ng-controller="headerCtrl as header">
-            <span class="_spinner load-container" 
-                id="spinner"
-                ng-show="header.loader.loading">
+            <span id="spinner" ng-show="header.loader.loading">
                 <span class="loader">
                     Loading
                     <span class="one">.</span>
@@ -39,9 +37,17 @@
         <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="/angular-resource/angular-resource.min.js"></script>
         <script src="/app.js"></script>
-        <script src="/components/components.js"></script>
-        <script src="/header/header.js"></script>
-        <script src="/nav/nav.js"></script>
-        <script src="/player/player.js"></script>
+        <script src="/modules/components/feed.factory.js"></script>
+        <script src="/modules/components/trusturl.filter.js"></script>
+        <script src="/modules/components/formatdate.filter.js"></script>
+        <script src="/modules/components/videosrc.filter.js"></script>
+        <script src="/modules/components/pubsub.factory.js"></script>
+        <script src="/modules/components/loader.factory.js"></script>
+        <script src="/modules/components/interceptor.factory.js"></script>
+        <script src="/modules/header/header.controller.js"></script>
+        <script src="/modules/nav/nav.controller.js"></script>
+        <script src="/modules/nav/vpodnav.directive.js"></script>
+        <script src="/modules/player/player.controller.js"></script>
+        <script src="/modules/player/vpodplayer.directive.js"></script>
     </body>
 </html>

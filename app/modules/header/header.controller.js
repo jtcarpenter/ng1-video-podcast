@@ -2,13 +2,6 @@
     'use strict';
 
     angular
-        .module('vpod.header', [])
-})();
-
-(function() {
-    'use strict';
-
-    angular
         .module('vpod.header')
         .controller('headerCtrl', headerCtrl);
 

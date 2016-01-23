@@ -35,15 +35,6 @@
             });
         });
 
-        describe('slice filter', function() {
-            it('should take a slice from an array', function() {
-                var slice = $filter('slice');
-                expect(slice).not.toBeNull();
-                expect(slice([1,2,3,4,5], 0, 4)).toEqual([1,2,3,4]);
-                expect(slice([1,2,3,4,5], 1, 3)).toEqual([2,3]);
-            });
-        });
-
         describe('trustUrl filter', function() {
             it('should wrap trusted url and allow to be output as is', function() {
                 var trustUrl = $filter('trustUrl');
@@ -86,11 +77,11 @@
             beforeEach(function() {
                 $scope = $rootScope.$new();
                 element = $compile(html)($scope);
-                
                 $scope.$digest();
             });
 
             it('should compile and have class, \'episodes\'', function() {
+                dump(element);
                 expect(element.hasClass('episodes')).toBe(true);
             });
         });

@@ -2,32 +2,6 @@
     'use strict';
 
     angular
-        .module('vpod.nav', [])
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('vpod.nav')
-        .controller('navCtrl', navCtrl);
-
-    navCtrl.$inject = ['Feed', 'pubSub'];
-
-    function navCtrl(Feed, pubSub) {
-        var that = this;
-        this.feed = Feed.getCached();
-
-        this.select = function(i) {
-            pubSub.pub('play', [i]);
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
         .module('vpod.nav')
         .directive('vpodNav', vpodNav);
 
@@ -125,7 +99,7 @@
                 return this.link;
             },
 
-            templateUrl: '/components/vpodnav.view.html'
+            templateUrl: '/modules/nav/vpodnav.view.html'
         }
     }
 })();

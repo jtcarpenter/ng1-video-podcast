@@ -1,24 +1,39 @@
 (function() {
     'use strict';
 
+    var APP_NAME = 'vpod';
+
     angular
-        .module('vpod', dependencies())
+        .module(APP_NAME, dependencies())
         .config(config);
 
-    config.$inject = ['$httpProvider', '$stateProvider']
+    config.$inject = ['$httpProvider']
 
-    function config($httpProvider, $stateProvider) {
+    function config($httpProvider) {
         $httpProvider.interceptors.push('interceptor');
     }
+
+    angular.forEach(subModules(), function(mod) {
+        console.log(mod);
+        angular.module(mod, []);
+    });
 
     function dependencies() {
         return [
             'ui.router',
-            'ngResource',
-            'vpod.components',
-            'vpod.header',
-            'vpod.nav',
-            'vpod.player'
-        ];
+            'ngResource'
+        ]
+        .concat(subModules());
+    }
+
+    function subModules() {
+        return [
+            'components',
+            'header',
+            'nav',
+            'player'
+        ].map(function(mod) {
+            return APP_NAME + '.' + mod;
+        });
     }
 })();
