@@ -21,11 +21,10 @@ module.exports = function(config) {
         "node_modules/angular-mocks/angular-mocks.js",
         "app/app.js",
         "app/components/components.js",
-        "app/components/vpodnav.view.html",
-        "app/components/vpodplayer.view.html",
         "app/header/header.js",
         "app/nav/nav.js",
         "app/player/player.js",
+        'app/**/*.html',
         "tests/*.js"
     ],
 
@@ -36,6 +35,7 @@ module.exports = function(config) {
         'ng-html2js',
         'karma-chrome-launcher',
         'karma-phantomjs-launcher',
+        'karma-ng-html2js-preprocessor'
     ],
 
 
@@ -47,12 +47,13 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'app/**/*.html': ['ng-html2js']
+        'app/**/*.html': ['ng-html2js'],
+        'app/**/*.js': ['coverage']
     },
 
     ngHtml2JsPreprocessor: {
         moduleName: 'templates',
-        stripPrefix: 'app/'
+        stripPrefix: 'app'
     },
 
     coverageReporter: {

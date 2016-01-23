@@ -1,4 +1,4 @@
-<div tabindex="0">
+<div tabindex="0" class="episodes">
     <button type="button" ng-click="up()" id="{{upId}}">
         Up
     </button>
@@ -12,6 +12,7 @@
                 ng-class="item.focussed"
                 ng-keypress="onKeydown(item)">
                 <h2>{{item.title}}</h2>
+                <p>{{item.pubdate}}</p>
             </a>
         </li>
     </ul>
