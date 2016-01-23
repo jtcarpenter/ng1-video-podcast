@@ -9,22 +9,30 @@
     </head>
     <body class="ng-cloak">
         <header ng-controller="headerCtrl as header">
-            <span class="spinner" id="spinner" ng-show="header.loader.loading">
-                Loading...
+            <span class="_spinner load-container" 
+                id="spinner"
+                ng-show="header.loader.loading">
+                <span class="loader">
+                    Loading
+                    <span class="one">.</span>
+                    <span class="two">.</span>
+                    <span class="three">.</span>
+                </span>
             </span>
             <h1>{{header.feed.site.title}}</h1>
             <p>{{header.feed.site.description}}</p>
         </header>
         <section class="content">
             <nav ng-controller="navCtrl as nav">
-                <vpod-nav items="nav.feed.items" on-select="nav.select" tabindex="0">
+                <vpod-nav items="nav.feed.items"
+                    on-select="nav.select"
+                    tabindex="0">
                 </vpod-nav>
             </nav>
             <section class="player" ng-controller="playerCtrl as player">
-                <vpod-player></vpod-player>
                 <h2>{{player.feed.items[player.i].title}}</h2>
+                <vpod-player class="vpod-player"></vpod-player>
             </section>
-            <!-- <div ui-view></div> -->
         </section>
         <footer></footer>
         <script src="/angular/angular.min.js"></script>

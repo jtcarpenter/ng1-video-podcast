@@ -57,6 +57,10 @@
 
         });
 
+        describe('parseDate filter', function() {
+
+        });
+
         describe('pubSub factory', function() {
 
         });

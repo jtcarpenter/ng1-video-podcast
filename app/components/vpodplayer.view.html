@@ -1,4 +1,4 @@
-<video width="400" controls class="video">
+<video controls class="video">
     <source
         ng-repeat="enclosure in episode.enclosures | videoSrc"
         src="{{enclosure.url | trustUrl}}"

@@ -1,6 +1,6 @@
 <div tabindex="0" class="episodes">
-    <button type="button" ng-click="up()" id="{{upId}}">
-        Up
+    <button type="button" ng-click="up()" id="{{upId}}" class="nav-btn" title="Navigate up">
+        <i class="icon-chevron-up"></i>
     </button>
     <ul>
         <li ng-repeat="item in items track by $index">
@@ -11,12 +11,14 @@
                 ng-blur="onBlur(item, $event)"
                 ng-class="item.focussed"
                 ng-keypress="onKeydown(item)">
-                <h2>{{item.title}}</h2>
-                <p>{{item.pubdate}}</p>
+                <i class="icon-play-circle"></i>
+                <h2 class="item-title">{{item.title}}
+                    <span class="item-pubdate">{{item.pubdate | formatDate}}</span>
+                </h2>
             </a>
         </li>
     </ul>
-    <button type="button" ng-click="down()" id="{{downId}}">
-        Down
+    <button type="button" ng-click="down()" id="{{downId}}" class="nav-btn" title="Navigate down">
+        <i class="icon-chevron-down"></i>
     </button>
 </div>
