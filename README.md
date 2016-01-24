@@ -61,3 +61,10 @@ To create the VM with a different IP, instead run:
 ```
 $ IP="192.168.**.**" vagrant up
 ```
+
+## Tests
+
+```
+$ sudo npm install -g karma-cli
+$ npm test
+```
