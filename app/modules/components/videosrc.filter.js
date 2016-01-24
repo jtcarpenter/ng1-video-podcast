@@ -1,3 +1,7 @@
+/**
+ * videoSrc Filter
+ * @namespace Filters
+ */
 (function() {
     'use strict';
 

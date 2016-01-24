@@ -1,3 +1,7 @@
+/**
+ * headerCtrl Controller
+ * @namespace Controllers
+ */
 (function() {
     'use strict';
 

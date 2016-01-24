@@ -1,6 +1,7 @@
 (function() {
     'use strict';
 
+    // Name of main app module
     var APP_NAME = 'vpod';
 
     angular
@@ -17,6 +18,10 @@
         angular.module(mod, []);
     });
 
+    /**
+     * @desc   Gets all third party and sub module dependencies
+     * @return {array}  Array of dependency names
+     */
     function dependencies() {
         return [
             'ui.router',
@@ -25,6 +30,10 @@
         .concat(subModules());
     }
 
+    /**
+     * @des     Gets all sub modules
+     * @return  {array} Array of sub modules
+     */
     function subModules() {
         return [
             'components',

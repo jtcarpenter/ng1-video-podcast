@@ -1,3 +1,7 @@
+/**
+ * formatDate Filter
+ * @namespace Filters
+ */
 (function() {
     'use strict';
 

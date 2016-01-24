@@ -1,3 +1,7 @@
+/**
+ * vpodPlayer Directive
+ * @namespace Directives
+ */
 (function() {
     'use strict';
 
