@@ -1,7 +1,3 @@
-/**
- * playerCtrl Controller
- * @namespace Controllers
- */
 (function() {
     'use strict';
 
@@ -11,6 +7,13 @@
 
     playerCtrl.$inject = ['Feed', 'pubSub'];
 
+    /**
+     * @name playerCtrl
+     * @desc Controller attached to video wrapper.
+     * Subscribes to play event so if can access the currently playing episode
+     * @param  {Object} Feed
+     * @param  {Object} pubSub
+     */
     function playerCtrl(Feed, pubSub) {
 
         var that = this;

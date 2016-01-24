@@ -1,7 +1,3 @@
-/**
- * interceptor Factory
- * @namespace Factories
- */
 (function() {
     'use strict';
 
@@ -11,8 +7,18 @@
 
     interceptor.$inject = ['$q', 'loader'];
 
+    /**
+     * @name interceptor
+     * @desc Factory which intercepts all HTTP requests
+     * made using angular $http service.
+     * Updates the loading state on the injected loader factory
+     * @param  {Object} $q
+     * @param  {Object} loader
+     * @return {Object}
+     */
     function interceptor($q, loader) {
 
+        // Keep a count of all currently onresolved requests
         var requests = 0;
 
         return {

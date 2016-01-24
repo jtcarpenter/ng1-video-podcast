@@ -19,7 +19,7 @@
     });
 
     /**
-     * @desc   Gets all third party and sub module dependencies
+     * @desc Gets all third party and sub module dependencies
      * @return {array}  Array of dependency names
      */
     function dependencies() {
@@ -31,7 +31,7 @@
     }
 
     /**
-     * @des     Gets all sub modules
+     * @desc Gets all sub modules
      * @return  {array} Array of sub modules
      */
     function subModules() {

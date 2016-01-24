@@ -1,7 +1,3 @@
-/**
- * Feed Factory
- * @namespace Factories
- */
 (function() {
     'use strict';
 
@@ -12,9 +8,9 @@
     Feed.$inject = ['$resource', '$q'];
 
     /**
-     * @namespace Feed
-     * @desc resource wrapper
-     * @memberOf Factories.Feed
+     * @name Feed
+     * @desc Uses the $resourse factory 
+     * to provides a API to query video podcast feed      
      */
     function Feed($resource, $q) {
 
@@ -25,16 +21,20 @@
 
             /**
              * @name get
-             * @desc Gets a feed resource from server
-             * -- @param {integer} index of item
-             * @returns {object}
-             * @memberOf Factories.Feed
+             * @desc Gets a feed from server
+             * @returns {Object} Promise instance
              */
             get: function() {
                 _feed = res.get.apply(this, arguments);
                 return this.getCached();
             },
 
+            /**
+             * @name getCached
+             * @desc Gets current feed object
+             * (does not attempt to go to the server) 
+             * @returns {Object} Promise instance or empty object
+             */
             getCached: function() {
                 return _feed;
             }
