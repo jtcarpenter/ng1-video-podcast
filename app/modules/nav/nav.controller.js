@@ -1,3 +1,7 @@
+/**
+ * navCtrl Controller
+ * @namespace Controllers
+ */
 (function() {
     'use strict';
 

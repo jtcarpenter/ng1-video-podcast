@@ -1,3 +1,7 @@
+/**
+ * loader Factory
+ * @namespace Factories
+ */
 (function() {
     'use strict';
 

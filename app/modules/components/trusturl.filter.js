@@ -1,3 +1,7 @@
+/**
+ * trustUrl Filter
+ * @namespace Filters
+ */
 (function() {
     'use strict';
 

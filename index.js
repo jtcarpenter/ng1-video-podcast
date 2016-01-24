@@ -1,41 +1,90 @@
 'use strict';
 
 var PORT = 3000,
-    CNN_URL = 'http://rss.cnn.com/services/podcasting/studentnews/rss.xml',
-    TED_URL = 'https://www.ted.com/talks/rss',
+    CNN_URL = 'http://rss.cnn.com/services/podcasting/{{feed}}/rss.xml',
+    FEED = 'studentnews',
     request = require('request'),
     FeedParser = require('feedparser'),
     express = require('express'),
     app = express();
 
+// Static routes for application assets
 app.use(express.static(__dirname + '/app'));
 app.use(express.static(__dirname + '/node_modules'));
 
-app.use('/api/', function(req, res) {
+// Route for feed ajax request
+app.use('/api/', feed);
 
-    //setTimeout(function() { /////////
+app.listen(PORT, function() {
+    console.log('listening on *:' + PORT);
+});
 
-    var req = request(CNN_URL),
-        feedparser = new FeedParser({feedurl: CNN_URL}),
+/**
+ * @description             Get a CNN feed url
+ * @param  {string} feed    name of
+ * @return {string}         feed url
+ */
+function url(feed) {
+    return CNN_URL.replace('{{feed}}', feed);
+}
+
+/**
+ * @description    
+ * @param  {object} req The request object
+ * @param  {res}    res The response object
+ * @return {void}
+ */
+function feed(req, res) {
+    var feed = request(url(FEED)),
+        feedparser = new FeedParser({feedurl: url(FEED)}),
         items = [];
 
-    req.on('error', function (error) {
+    feed.on('error', onFeedError);
+    feed.on('response', onFeedResponse);
+
+    feedparser.on('error', onParseError);
+    feedparser.on('readable', onParseReadable);
+    feedparser.on('end', onParseEnd);
+
+    /**
+     * @desc   Log error requesting RSS feed
+     * @return {boolean}
+     */
+    function onFeedError(error) {
         console.log('req error', error);
-    });
+        res.status(404);
+        res.json(error);
+        return false;
+    }
 
-    req.on('response', function (res) {
+    /**
+     * @desc   RSS request succeeded, pass response to parser
+     * @param  {object} res
+     */
+    function onFeedResponse(res) {
         var stream = this;
-
-        if (res.statusCode != 200) return this.emit('error', new Error('Bad status code'));
-
+        if (res.statusCode != 200) {
+            return this.emit('error', new Error('Bad status code'));
+        }
         stream.pipe(feedparser);
-    });
+    }
 
-    feedparser.on('error', function(error) {
+    /**
+     * @desc   Log parse error
+     * @return {void}
+     */
+    function onParseError(error) {
         console.log('feedparser error', error);
-    });
+        res.status(404);
+        res.json(error);
+        return;
+    }
 
-    feedparser.on('readable', function() {
+    /**
+     * @desc   Parsed XML, reading items from stream
+     * @return {void}
+     */
+    function onParseReadable() {
         var stream = this,
             meta = this.meta,
             item;
@@ -43,10 +92,13 @@ app.use('/api/', function(req, res) {
         while (item = stream.read()) {
             items.push(item);
         }
+    }
 
-    });
-
-    feedparser.on('end', function(error) {
+    /**
+     * @desc   Parse completed return JSON response  
+     * @return {void}
+     */
+    function onParseEnd(error) {
         if (error) {
             console.log(error);
             res.status(404);
@@ -64,11 +116,7 @@ app.use('/api/', function(req, res) {
             },
             items: items
         });
-    });
+    }
+}
 
-    //}, 2000); /////////
-});
 
-app.listen(PORT, function() {
-    console.log('listening on *:' + PORT);
-});

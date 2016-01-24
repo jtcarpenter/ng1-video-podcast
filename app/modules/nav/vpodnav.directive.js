@@ -1,3 +1,7 @@
+/**
+ * vpodNav Directive
+ * @namespace Directives
+ */
 (function() {
     'use strict';
 
