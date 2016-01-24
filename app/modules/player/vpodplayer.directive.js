@@ -1,7 +1,3 @@
-/**
- * vpodPlayer Directive
- * @namespace Directives
- */
 (function() {
     'use strict';
 
@@ -11,6 +7,13 @@
 
     vpodPlayer.$inject = ['pubSub', 'Feed'];
 
+    /**
+     * @name vpodPlayer
+     * @desc Directive to control playing an episode after selection
+     * @param  {Object} pubSub
+     * @param  {Object} Feed
+     * @return {Object}
+     */
     function vpodPlayer(pubSub, Feed) {
 
         return {

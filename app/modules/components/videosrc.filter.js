@@ -1,7 +1,3 @@
-/**
- * videoSrc Filter
- * @namespace Filters
- */
 (function() {
     'use strict';
 
@@ -11,6 +7,12 @@
 
     videoSrc.$inject = [];
 
+    /**
+     * @name videoSrc
+     * @desc Filters an array of objects
+     * checking their type property to see if it looks like a video
+     * @return {Array} Filtered array of objects
+     */
     function videoSrc() {
         return function(enclosures) {
             if (typeof enclosures === 'undefined') return false;

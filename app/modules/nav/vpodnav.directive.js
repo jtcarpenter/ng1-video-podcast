@@ -1,7 +1,3 @@
-/**
- * vpodNav Directive
- * @namespace Directives
- */
 (function() {
     'use strict';
 
@@ -11,6 +7,14 @@
 
     vpodNav.$inject = ['$document'];
 
+    /**
+     * @name vpodNav
+     * @desc Directive to handle navigation of the episodes list.
+     * Responds to users clicking the up/down buttons
+     * and also the up/down cursor keys.
+     * @param  {Object} $documents
+     * @return {Object}
+     */
     function vpodNav($document) {
 
         var ITEM_ID = 'episode-',
@@ -33,6 +37,13 @@
                 $scope.upId = UP_ID;
                 $scope.downId = DOWN_ID;
 
+                /**
+                 * @name nextEl
+                 * @desc Attempts to navigate to next/prev episode in list.
+                 * @param  {Number} diff Number of positions to move in list.
+                 * 1 navigates to next, -1 navigates to prev.
+                 * @return {Object|null} HTML node if found
+                 */
                 function nextEl(diff) {
                     var curr = $scope.items.map(function(item){
                             return item.focussed;
@@ -40,22 +51,36 @@
                         .indexOf('focussed'),
                         next = curr += diff;
 
+                    console.log(typeof document.getElementById(ITEM_ID + next));
                     return document.getElementById(ITEM_ID + next);
                 }
 
+                /**
+                 * @name move
+                 * @desc Move focus to element
+                 * @param  {Object} el
+                 */
                 function move(el) {
                     if (el) el.focus();
                 }
 
+                /**
+                 * @name up
+                 * @desc Move to next element in list
+                 */
                 function up() {
                     move(nextEl(-1));
                 }
 
+                /**
+                 * @name down
+                 * @desc Move to previous element in list
+                 */
                 function down() {
                     move(nextEl(1));
                 }
 
-                elem.bind('keydown', function (event) {
+                elem.on('keydown', function (event) {
 
                     if (event.keyCode === 38) { // Up
 
@@ -89,7 +114,14 @@
                     }
                 });
 
-                $scope.onFocus = function(item, $event) {
+                /**
+                 * @name onFocus
+                 * @desc Callback function when element takes focus.
+                 * Sets 'focussed' property to undefined on all elements,
+                 * Sets it to true on element taking focus
+                 * @param  {Object} item   item object in model
+                 */
+                $scope.onFocus = function(item) {
                     angular.forEach($scope.items, function(item) {
                         item.focussed = undefined;
                     });
