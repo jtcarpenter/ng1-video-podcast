@@ -1,21 +1,63 @@
-Although it is slightly over-engineered for such a simple app,
-the app is broken down into seperate modules to demonstrate how
-I might structure a slightly more complex app
+# CNN Video Podcast
 
 ## App structure
 
+The application is broken up into modules, which control different parts of th UI.    
+
+The 'components' module includes shared components used by other modules.    
+
+This app is very simple so the modules are very small, but this structure can serve more complex apps.    
+
+```
+app/
+    app.css                 --> All CSS
+    app.js                  --> Bootstrap file
+    modules/                --> App specific modules
+        components/
+            **.js
+            **.view.html
+        header/
+            **.js
+            **.view.html
+        nav/
+            **.js
+            **.view.html
+        player/
+            **.js
+            **.view.html
+    index.html              --> The index HTML file
+```
 
 ## Run the node server
 
+The app uses a very simple proxy server written in NodeJS. Node and NPM must be installed.    
+
+The app can be started as followed. All dependencies are defined in package.json and should be installed.    
+
+```
+$ cd videopodcast
 $ npm start
+```
 
-## Vagrant
+Once running the app should be available at [http://localhost:3000](http://localhost:3000)    
 
-$ IP="192.168.33.99" vagrant up
+### Vagrant
 
-## How to run tests
+There is a very simple Vagrant script included.    
 
-$ sudo npm install -g karma-cli
+The VM will be created with a private network IP of 192.168.33.22     
 
-Install Phantom
+```
+$ vagrant up
+$ vagrant ssh
+$ cd /var/www/videopodcast
+$ npm start
+```
 
+Once running the app should be available at [http://192.168.33.22:3000](http://192.168.33.22:3000)    
+
+To create the VM with a different IP, instead run:    
+
+```
+$ IP="192.168.**.**" vagrant up
+```
