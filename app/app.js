@@ -23,11 +23,7 @@
      * @return {array}  Array of dependency names
      */
     function dependencies() {
-        return [
-            'ui.router',
-            'ngResource'
-        ]
-        .concat(subModules());
+        return ['ngResource'].concat(subModules());
     }
 
     /**
