@@ -51,7 +51,6 @@
                         .indexOf('focussed'),
                         next = curr += diff;
 
-                    console.log(typeof document.getElementById(ITEM_ID + next));
                     return document.getElementById(ITEM_ID + next);
                 }
 

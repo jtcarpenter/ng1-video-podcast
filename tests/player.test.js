@@ -34,10 +34,24 @@
             it('should compile and have class, \'video\'', function() {
                 expect(element.hasClass('video')).toBe(true);
             });
+
+            it('should...');
         });
 
         describe('playerCtrl', function() {
+            var playerCtrl,
+                $controller;
 
+            beforeEach(function() {
+                inject(function(_$controller_) {
+                    $controller = _$controller_;
+                });
+                playerCtrl = $controller('playerCtrl');
+            });
+
+            it('should be defined', function() {
+                expect(playerCtrl).toBeDefined();
+            });
         });
     });
 })();
