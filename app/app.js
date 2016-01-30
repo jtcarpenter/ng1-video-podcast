@@ -24,7 +24,6 @@
      */
     function dependencies() {
         return [
-            'ui.router',
             'ngResource'
         ]
         .concat(subModules());

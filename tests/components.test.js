@@ -4,9 +4,6 @@
     describe('Components', function() {
 
         var $filter,
-            $compile,
-            $rootScope,
-            $httpBackend,
             $sce;
 
         // beforeEach(module(function($provide) {
@@ -23,14 +20,12 @@
         // }));
 
         beforeEach(function() {
-            module('vpod.components');
+            module('vpod');
+            // module('vpod.components');
             module('templates');
 
-            inject(function(_$filter_, _$compile_, _$rootScope_, _$httpBackend_, _$sce_) {
+            inject(function(_$filter_, _$sce_) {
                 $filter = _$filter_;
-                $compile = _$compile_;
-                $rootScope = _$rootScope_;
-                $httpBackend = _$httpBackend_;
                 $sce = _$sce_;
             });
         });
@@ -58,6 +53,15 @@
 
         describe('Feed factory', function() {
 
+            var Feed;
+
+            beforeEach(inject(function(_Feed_) {
+                Feed = _Feed_;
+            }));
+
+            it('should be defined', function() {
+                expect(typeof Feed.get).toEqual('function');
+            });
         });
 
         describe('loader factory', function() {
@@ -67,42 +71,5 @@
         describe('loader factory', function() {
 
         });
-
-        describe('vpodNav directive', function() {
-
-            var element,
-                $scope,
-                html = '<vpod-nav></vpod-nav>';
-
-            beforeEach(function() {
-                $scope = $rootScope.$new();
-                element = $compile(html)($scope);
-                $scope.$digest();
-            });
-
-            it('should compile and have class, \'episodes\'', function() {
-                dump(element);
-                expect(element.hasClass('episodes')).toBe(true);
-            });
-        });
-
-        // describe('vpodPlayer directive', function() {
-
-        //     var element,
-        //         $scope,
-        //         html = '<vpod-player></vpod-player>';
-
-        //     beforeEach(function() {
-
-        //         $scope = $rootScope.$new();
-        //         element = $compile(html)($scope);
-                
-        //         $scope.$digest();
-        //     });
-
-        //     it('should compile and have class, \'video\'', function() {
-        //         expect(element.hasClass('video')).toBe(true);
-        //     });
-        // });
     });
 })();
