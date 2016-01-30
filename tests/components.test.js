@@ -5,19 +5,6 @@
 
         var $filter;
 
-        // beforeEach(module(function($provide) {
-        //     $provide.provider('pubSub', function () { 
-        //         this.$get = function () {
-        //             return {};
-        //         }
-        //     });
-        //     $provide.provider('Feed', function () { 
-        //         this.$get = function () {
-        //             return {};
-        //         }
-        //     });
-        // }));
-
         beforeEach(function() {
             module('vpod');
             module('templates');
@@ -96,7 +83,34 @@
         });
 
         describe('pubSub factory', function() {
-            it('should...');
+
+            var pubSub;
+
+            beforeEach(inject(function(_pubSub_) {
+                pubSub = _pubSub_;
+            }));
+
+            it('should be defined', function() {
+                expect(pubSub).toBeDefined();
+                expect(typeof pubSub.sub).toEqual('function');
+                expect(typeof pubSub.unSub).toEqual('function');
+                expect(typeof pubSub.pub).toEqual('function');
+            });
+
+            it('should call subscriber when event published', function() {
+                var mockCallback = jasmine.createSpy('test');
+                pubSub.sub('test', mockCallback);
+                pubSub.pub('test');
+                expect(mockCallback).toHaveBeenCalled();
+            });
+
+            it('should not call subscriber after unsubscribing', function() {
+                var mockCallback = jasmine.createSpy('test');
+                pubSub.sub('test', mockCallback);
+                pubSub.unSub('test', mockCallback);
+                pubSub.pub('test');
+                expect(mockCallback).not.toHaveBeenCalled();
+            });
         });
 
         describe('Feed factory', function() {
@@ -129,7 +143,8 @@
         });
 
         describe('interceptor factory', function() {
-            it('should...');
+            it('should set loader state to true on request');
+            it('should set loader state to false on request completion');
         });
     });
 })();
