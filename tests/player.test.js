@@ -34,9 +34,6 @@
             it('should compile and have class, \'video\'', function() {
                 expect(element.hasClass('video')).toBe(true);
             });
-
-            it('should subcribe function to play event');
-            it('should call \'load\' and \'play\' on video element');
         });
 
         describe('playerCtrl', function() {

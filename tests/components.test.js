@@ -69,7 +69,7 @@
                 expect(formatDate).not.toBeNull();
             });
 
-            it('should return a valid date string in format ...', function() {
+            it('should return a valid date string in format xx/xx/xx xx:xx', function() {
                 var dateStr = 'Fri Jan 01 2016 00:00:00 GMT+0000 (GMT)',
                     formattedDate = formatDate(dateStr);
                 expect(formattedDate).toEqual('01/01/2016 00:00');
@@ -143,8 +143,16 @@
         });
 
         describe('interceptor factory', function() {
-            it('should set loader state to true on request');
-            it('should set loader state to false on request completion');
+
+            var interceptor;
+
+            beforeEach(inject(function(_interceptor_) {
+                interceptor = _interceptor_;
+            }));
+
+            it('should be defined', function() {
+                expect(interceptor).toBeDefined();
+            });
         });
     });
 })();

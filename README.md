@@ -64,7 +64,7 @@ $ IP="192.168.**.**" vagrant up
 
 ## Tests
 
-There are unit tests written in Jasmine under ```tests/```    
+There are some unit tests written in Jasmine under ```tests/```    
 
 The tests can be run using [Karma](https://karma-runner.github.io) test runner.    
 
