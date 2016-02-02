@@ -5,17 +5,14 @@
         .module('vpod.nav')
         .directive('vpodNav', vpodNav);
 
-    vpodNav.$inject = ['$document'];
-
     /**
      * @name vpodNav
      * @desc Directive to handle navigation of the episodes list.
      * Responds to users clicking the up/down buttons
      * and also the up/down cursor keys.
-     * @param  {Object} $documents
      * @return {Object}
      */
-    function vpodNav($document) {
+    function vpodNav() {
 
         var ITEM_ID = 'episode-',
             UP_ID = 'up-id',
